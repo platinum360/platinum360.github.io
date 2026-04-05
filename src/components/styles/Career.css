@@ -262,6 +262,11 @@
         #0000ff 60%,
         #4b0082 75%,
         #8b00ff 100%) !important;
+    animation: none !important; /* Disable any potential CSS animations */
+  }
+
+  .career-dot {
+    display: none !important; /* Hide the pulsing dot on mobile */
   }
 
   .career-container {
