@@ -27,11 +27,16 @@ const Navbar = () => {
     links.forEach((elem) => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
+        let elem = e.currentTarget as HTMLAnchorElement;
+        let section = elem.getAttribute("data-href")!;
+
         if (window.innerWidth > 1024) {
           e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href")!;
           smoother.scrollTo(section, true, "top top");
+        } else if (section === "#work") {
+          // Mobile Redirect for WORK link to Lego Pieces
+          e.preventDefault();
+          document.querySelector("#lego-pieces")?.scrollIntoView({ behavior: "smooth" });
         }
       });
     });

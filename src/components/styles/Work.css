@@ -312,3 +312,7 @@
     margin-bottom: 20px;
   }
 }
+
+#lego-pieces {
+  scroll-margin-top: 85px;
+}

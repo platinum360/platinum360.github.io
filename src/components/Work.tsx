@@ -914,7 +914,7 @@ const Work = () => {
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
-        <h2 className="work-title">
+        <h2 className="work-title" id="lego-pieces">
           <span style={{ color: '#ffffff' }}>My</span> <span style={{ color: '#fdf44f' }}>LEGO</span> <span style={{ color: '#ffffff' }}>Pieces</span>
         </h2>
 
