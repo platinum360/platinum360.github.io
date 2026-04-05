@@ -75,7 +75,8 @@
   }
   .about-me {
     padding: 0px;
-    width: 50%;
+    width: 60%;
+    margin-left: 5%; /* nudges the section 5% towards the right */
   }
   .about-me h3 {
     text-align: left;
@@ -98,5 +99,15 @@
   }
   .mobile-br {
     display: none;
+  }
+}
+
+.desktop-only-br {
+  display: none;
+}
+
+@media only screen and (min-width: 1025px) {
+  .desktop-only-br {
+    display: block;
   }
 }
