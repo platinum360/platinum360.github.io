@@ -252,14 +252,16 @@
   .career-timeline {
     left: 0%;
     transform: translateX(-50%) scaleY(1) !important;
+    opacity: 1 !important;
+    z-index: 30 !important;
     background-image: linear-gradient(to bottom,
-        red 0%,
-        orange 15%,
-        yellow 30%,
-        green 45%,
-        blue 60%,
-        indigo 75%,
-        violet 100%) !important;
+        #ff0000 0%,
+        #ff7f00 15%,
+        #ffff00 30%,
+        #00ff00 45%,
+        #0000ff 60%,
+        #4b0082 75%,
+        #8b00ff 100%) !important;
   }
 
   .career-container {
