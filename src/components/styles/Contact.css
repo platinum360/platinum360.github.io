@@ -1,0 +1,142 @@
+/* ========================================================================= */
+/* 1. BASE STYLES (Default / Mobile-First Layout)                            */
+/* ========================================================================= */
+
+.contact-section {
+  position: relative;
+  z-index: 2;
+  margin: 100px auto 0; /* Combined margin-top and auto */
+  padding-bottom: 100px;
+}
+
+.contact-section h3 {
+  margin: 0;
+  font-size: 60px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.contact-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-flex h4 {
+  margin: 0;
+  font-weight: 500;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.contact-flex p {
+  margin: 10px 0 20px 0; /* Shorthand: top right bottom left */
+}
+
+.contact-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-box h2 {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 400;
+}
+
+.contact-box h2 .designed-by {
+  color: #ffffff !important;
+}
+
+.contact-box h2 .designed-name {
+  color: #fdf44f !important;
+}
+
+.contact-box h5 {
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1; /* Standardized from 20px to relative 1 */
+  opacity: 0.5;
+}
+
+a.contact-social {
+  display: block;
+  width: 50%;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  font-size: 25px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* ========================================================================= */
+/* 2. DESKTOP SPECIFIC OVERRIDES (Large Screens Only)                        */
+/* ========================================================================= */
+
+@media screen and (min-width: 1025px) {
+  .contact-section h3 {
+    padding-bottom: 2%; 
+  }
+
+  .contact-box h5 {
+    margin-top: 2%; 
+    color: #fdf44f !important; 
+    opacity: 1; 
+  }
+
+  /* Hide the Social links box on desktop — social icons in the fixed sidebar */
+  .contact-box:has(a.contact-social) {
+    display: none;
+  }
+}
+
+/* ========================================================================= */
+/* 3. RESPONSIVE SCALING (Scaling Down for Smaller Screens)                  */
+/* ========================================================================= */
+
+@media screen and (max-width: 1600px) {
+  .contact-section h3 { font-size: 50px; }
+  .contact-box h2 { font-size: 20px; }
+  a.contact-social { font-size: 22px; }
+}
+
+@media screen and (max-width: 1300px) {
+  .contact-section h3 { font-size: 40px; }
+  .contact-box h2 { font-size: 18px; }
+  a.contact-social { font-size: 20px; }
+  .contact-flex p { margin-top: 0; }
+}
+
+@media screen and (max-width: 900px) {
+  .contact-section {
+    margin-top: 30px;
+    padding-bottom: 50px;
+  }
+  
+  .contact-container {
+    width: calc(100% - 25px);
+  }
+
+  .contact-flex {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-flex h4 {
+    margin-top: 20px;
+  }
+
+  .contact-flex p {
+    margin-bottom: 0;
+  }
+
+  .contact-box h4:first-child {
+    margin-top: 0 !important;
+  }
+
+  .contact-box h5 {
+    color: #fdf44f !important;
+    opacity: 1 !important;
+    margin-top: 20px;
+  }
+}
