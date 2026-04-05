@@ -233,6 +233,10 @@
     margin-bottom: 0;
     z-index: 20 !important;
   }
+  
+  .career-timeline, .career-dot {
+    display: none !important;
+  }
 }
 
 @media only screen and (max-width: 900px) {
@@ -250,23 +254,15 @@
   }
 
   .career-timeline {
-    left: 0%;
-    transform: translateX(-50%) scaleY(1) !important;
-    opacity: 1 !important;
-    z-index: 30 !important;
-    background-image: linear-gradient(to bottom,
-        #ff0000 0%,
-        #ff7f00 15%,
-        #ffff00 30%,
-        #00ff00 45%,
-        #0000ff 60%,
-        #4b0082 75%,
-        #8b00ff 100%) !important;
-    animation: none !important; /* Disable any potential CSS animations */
+    display: none !important; /* Completely remove the rainbow line on mobile */
   }
 
   .career-dot {
-    display: none !important; /* Hide the pulsing dot on mobile */
+    display: none !important; /* Remove the dot */
+  }
+
+  .career-info-box {
+    opacity: 1 !important; /* Ensure text is always full bright */
   }
 
   .career-container {
