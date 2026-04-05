@@ -9,60 +9,69 @@ export function setCharTimeline(
   setInterval(() => {
     intensity = Math.random();
   }, 200);
-  const tl1 = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".landing-section",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      invalidateOnRefresh: true,
-    },
-  });
-  const tl2 = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".about-section",
-      start: "center 55%",
-      end: "bottom top",
-      scrub: true,
-      invalidateOnRefresh: true,
-    },
-  });
-  const tl3 = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".whatIDO",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      invalidateOnRefresh: true,
-    },
-  });
-  let screenLight: any, monitor: any;
-  character?.children.forEach((object: any) => {
-    if (object.name === "Plane004") {
-      object.children.forEach((child: any) => {
-        child.material.transparent = true;
-        child.material.opacity = 0;
-        if (child.material.name === "Material.018") {
-          monitor = child;
-          child.material.color.set("#FFFFFF");
+
+  const mm = gsap.matchMedia();
+
+  mm.add("(min-width: 1025px)", () => {
+    if (character) {
+      let screenLight: any, monitor: any;
+      character.children.forEach((object: any) => {
+        if (object.name === "Plane004") {
+          object.children.forEach((child: any) => {
+            child.material.transparent = true;
+            child.material.opacity = 0;
+            if (child.material.name === "Material.018") {
+              monitor = child;
+              child.material.color.set("#FFFFFF");
+            }
+          });
+        }
+        if (object.name === "screenlight") {
+          object.material.transparent = true;
+          object.material.opacity = 0;
+          object.material.emissive.set("#B0F5EA");
+          gsap.timeline({ repeat: -1, repeatRefresh: true }).to(object.material, {
+            emissiveIntensity: () => intensity * 8,
+            duration: () => Math.random() * 0.6,
+            delay: () => Math.random() * 0.1,
+          });
+          screenLight = object;
         }
       });
-    }
-    if (object.name === "screenlight") {
-      object.material.transparent = true;
-      object.material.opacity = 0;
-      object.material.emissive.set("#B0F5EA");
-      gsap.timeline({ repeat: -1, repeatRefresh: true }).to(object.material, {
-        emissiveIntensity: () => intensity * 8,
-        duration: () => Math.random() * 0.6,
-        delay: () => Math.random() * 0.1,
+
+      let neckBone = character.getObjectByName("spine005");
+
+      const tl1 = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".landing-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
       });
-      screenLight = object;
-    }
-  });
-  let neckBone = character?.getObjectByName("spine005");
-  if (window.innerWidth > 1024) {
-    if (character) {
+
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".about-section",
+          start: "center 55%",
+          end: "bottom top",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      const tl3 = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".whatIDO",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Desktop animations
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
         .to(camera.position, { z: 22 }, 0)
@@ -117,7 +126,7 @@ export function setCharTimeline(
         .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
     }
-  }
+  });
 }
 
 export function setAllTimeline() {

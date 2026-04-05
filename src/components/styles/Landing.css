@@ -143,9 +143,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .character-container {
-    position: absolute !important;
-  }
+  /* Removing absolute override to keep it fixed/stationary on mobile */
 }
 
 @media screen and (max-width: 1024px) {
