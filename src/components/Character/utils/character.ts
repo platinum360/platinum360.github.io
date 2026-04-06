@@ -48,6 +48,11 @@ const setCharacter = (
                     newMat.map = null;
                     newMat.needsUpdate = true;
                     mesh.material = newMat;
+                  } else if (name === "cap001") {
+                    const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
+                    newMat.color = new THREE.Color("#008ea5");
+                    newMat.needsUpdate = true;
+                    mesh.material = newMat;
                   } else if (
                     name.includes("body") || 
                     name.includes("skin") || 
