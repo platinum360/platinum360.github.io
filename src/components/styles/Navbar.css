@@ -39,8 +39,8 @@
 
 .header a:hover,
 .header a:hover * {
-  -webkit-text-fill-color: #fdf44f !important;
-  color: #fdf44f !important;
+  -webkit-text-fill-color: var(--headingColor) !important;
+  color: var(--headingColor) !important;
   background: none;
   background-clip: border-box;
   -webkit-background-clip: border-box;
@@ -70,6 +70,9 @@
   }
   .header ul {
     margin: 0 !important;
+  }
+  .nav-resume-link {
+    display: none !important;
   }
 }
 @media only screen and (min-width: 450px) {

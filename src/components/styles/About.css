@@ -32,7 +32,7 @@
   line-height: 28px;
   letter-spacing: 1px;
   text-wrap: balance;
-  color: #ffffff !important;
+  color: var(--textColor) !important;
   opacity: 1 !important;
   margin-bottom: 30px;
   text-align: center;

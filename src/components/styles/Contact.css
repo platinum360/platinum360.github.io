@@ -24,7 +24,7 @@
 .contact-flex h4 {
   margin: 0;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--textColor);
   opacity: 1;
 }
 
@@ -44,11 +44,11 @@
 }
 
 .contact-box h2 .designed-by {
-  color: #ffffff !important;
+  color: var(--textColor) !important;
 }
 
 .contact-box h2 .designed-name {
-  color: #fdf44f !important;
+  color: var(--headingColor) !important;
 }
 
 .contact-box h5 {
@@ -80,12 +80,13 @@ a.contact-social {
 
   .contact-box h5 {
     margin-top: 2%; 
-    color: #fdf44f !important; 
+    color: var(--headingColor) !important; 
     opacity: 1; 
   }
 
-  /* Hide the Social links box on desktop — social icons in the fixed sidebar */
-  .contact-box:has(a.contact-social) {
+  /* Hide the Social and Mobile Resume links box on desktop */
+  .contact-box:has(a.contact-social),
+  .contact-resume-mobile {
     display: none;
   }
 }
@@ -135,7 +136,7 @@ a.contact-social {
   }
 
   .contact-box h5 {
-    color: #fdf44f !important;
+    color: var(--headingColor) !important;
     opacity: 1 !important;
     margin-top: 20px;
   }

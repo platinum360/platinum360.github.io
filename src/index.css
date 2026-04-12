@@ -10,7 +10,15 @@
   line-height: 1.5;
   scroll-behavior: smooth;
   color-scheme: light dark;
-  color: #eae5ec;
+  
+  /* Shared Theme Variables - Dark Mode Default */
+  --textColor: #eae5ec;
+  --backgroundColor: #07121a;
+  --accentColor: #11292f;
+  --headingColor: #fdf44f;
+  --logoFilter: none;
+
+  color: var(--textColor);
   background-color: var(--backgroundColor);
 
   font-synthesis: none;
@@ -20,9 +28,195 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  --accentColor: #11292f;
-  --backgroundColor: #07121a;
   --vh: 100dvh;
+
+  /* Cursor Theme Variables - Dark (Default) */
+  --cursor-fill: #000000;
+  --cursor-stroke: #ffffff;
+}
+
+/* Global Cursor Suppression */
+* {
+  cursor: none !important;
+}
+
+/* Form element cursor resets for accessibility */
+input, textarea, select {
+  cursor: text !important;
+}
+
+button, a, [role="button"], .navbar-title {
+  cursor: none !important; /* Force custom cursor on interactive elements */
+}
+
+[data-theme="light"] {
+  --textColor: #2a2a2a;
+  --backgroundColor: #f8f6f0;
+  --accentColor: #e8e4db;
+  --headingColor: #285e2b; /* Forest Green */
+  --light-accent-green: #285e2b; /* Requested explicit variable */
+  --logoFilter: invert(1) brightness(0.2);
+  color-scheme: light;
+
+  /* Cursor Theme Variables - Light */
+  --cursor-fill: #ffffff;
+  --cursor-stroke: #285e2b;
+}
+
+/* Light Mode Global Targeted Overrides */
+[data-theme="light"] .light-green-text {
+  color: var(--light-accent-green) !important;
+}
+
+[data-theme="light"] .light-green-heading,
+[data-theme="light"] .light-green-heading span {
+  color: var(--light-accent-green) !important;
+}
+
+/* Navbar specific light mode targeting */
+[data-theme="light"] .header a:hover,
+[data-theme="light"] .header a:hover *,
+[data-theme="light"] .nav-star-border:hover .star-border-inner {
+  -webkit-text-fill-color: #fdf44f !important;
+  color: #fdf44f !important;
+}
+
+/* SVGs Replacement (Native replacement for explicit new files) */
+[data-theme="light"] .name-img {
+  content: url("/Aditya Jadhav_Name2.svg");
+}
+
+[data-theme="light"] .creative-designer-img {
+  content: url("/Graphic Designer_Name2.svg");
+}
+
+/* Social media handles colored forest green */
+[data-theme="light"] .social-icons span a,
+[data-theme="light"] .social-icons span a svg,
+[data-theme="light"] .contact-social {
+  color: var(--light-accent-green) !important;
+  fill: var(--light-accent-green) !important;
+  border-color: rgba(40, 94, 43, 0.2) !important;
+}
+
+/* Contact Links (Email & Resume) Forest Green */
+[data-theme="light"] .contact-box a[href^="mailto:"],
+[data-theme="light"] .contact-resume-mobile a {
+  color: var(--light-accent-green) !important;
+}
+
+/* What I Do Animations & Text Visibility */
+[data-theme="light"] .what-border1 svg line,
+[data-theme="light"] .what-border2 svg line {
+  stroke: var(--light-accent-green) !important;
+}
+[data-theme="light"] .what-arrow,
+[data-theme="light"] .what-arrow::before,
+[data-theme="light"] .what-content::before,
+[data-theme="light"] .what-corner::before,
+[data-theme="light"] .what-content::after,
+[data-theme="light"] .what-corner::after {
+  border-color: var(--light-accent-green) !important;
+}
+[data-theme="light"] .what-content h4,
+[data-theme="light"] .what-content p,
+[data-theme="light"] .what-content-in h5,
+[data-theme="light"] .what-tags {
+  color: var(--textColor) !important;
+}
+[data-theme="light"] .what-tags {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Remove Career Timeline Glow Dot */
+[data-theme="light"] .career-dot {
+  display: none !important;
+}
+
+/* Work Projects Grid Card Customization */
+[data-theme="light"] .work-tilt-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .work-tilt-card:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(40, 94, 43, 0.1) !important;
+}
+
+[data-theme="light"] .work-card-title {
+  color: var(--textColor) !important;
+}
+
+[data-theme="light"] .work-card-cat,
+[data-theme="light"] .work-card-tools {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+[data-theme="light"] .work-card-cta,
+[data-theme="light"] .work-card-num {
+  color: var(--light-accent-green) !important;
+}
+
+/* Magic Bento Grid Card Customization */
+[data-theme="light"] .mb-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .mb-card:hover {
+  border-color: rgba(40, 94, 43, 0.25) !important;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.1), 0 0 18px rgba(40, 94, 43, 0.05) !important;
+}
+
+[data-theme="light"] .mb-particle {
+  background: var(--light-accent-green) !important;
+  box-shadow: 0 0 6px rgba(40, 94, 43, 0.7) !important;
+}
+
+/* --- New UI Refinements --- */
+
+/* Remove dark shadows behind project cards cover images in Light Mode */
+[data-theme="light"] .work-card-img-wrap {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Remove dark shadow behind Video Showreel in Light Mode */
+[data-theme="light"] .vs-glass-wrapper {
+  box-shadow: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Replace top left corner AJ with AJ_Port.svg natively */
+[data-theme="light"] .aj-logo {
+  content: url("/AJ_Port.svg");
+  filter: none !important;
+}
+
+/* Make "ABOUT ME" title Bold in Light Mode */
+[data-theme="light"] .about-section .title {
+  font-weight: 800 !important;
+}
+
+/* Character Background Glows (Remove bright neon blue) */
+[data-theme="light"] .landing-circle1,
+[data-theme="light"] .landing-circle2,
+[data-theme="light"] .landing-circle3,
+[data-theme="light"] .character-rim {
+  background: var(--light-accent-green) !important;
+  box-shadow: inset 0px 30px 60px 0px rgba(40, 94, 43, 0.4) !important;
+}
+
+/* Video Showreel Playback Controls Visibility Fix */
+[data-theme="light"] .vs-controls,
+[data-theme="light"] .vs-nav-controls {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .vs-control-btn,
+[data-theme="light"] .vs-index {
+  color: var(--headingColor) !important;
 }
 
 h1,
@@ -33,12 +227,12 @@ h5,
 h6 {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 600;
-  color: #fdf44f !important;
+  color: var(--headingColor) !important;
 }
 
 .shop-text, .shop-h2 {
   font-family: "Bonheur Royale", cursive !important;
-  color: #fdf44f !important;
+  color: var(--headingColor) !important;
   text-transform: none !important;
   font-size: 1.2em;
 }
@@ -195,5 +389,34 @@ body {
   .mb-modal {
     padding-left: 20px !important;
     padding-right: 20px !important;
+  }
+}
+
+/* --- Premium Theme Transition (View Transitions API) --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: -1;
+}
+
+::view-transition-new(root) {
+  z-index: 99999;
+}
+
+/* The expanding circle animation */
+.theme-transition-active::view-transition-new(root) {
+  animation: 0.8s cubic-bezier(0.4, 0, 0.2, 1) both theme-reveal;
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0% at var(--x) var(--y));
+  }
+  to {
+    clip-path: circle(150% at var(--x) var(--y));
   }
 }

@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { DRACOLoader, GLTF, GLTFLoader } from "three-stdlib";
 import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
 import { decryptFile } from "./decrypt";
+import { gsap } from "gsap";
 
 const setCharacter = (
   camera: THREE.PerspectiveCamera
@@ -11,6 +12,21 @@ const setCharacter = (
   dracoLoader.setDecoderPath("/draco/");
   loader.setDRACOLoader(dracoLoader);
 
+  const clothingMaterials: THREE.MeshStandardMaterial[] = [];
+
+  const updateClothingTheme = (isLightMode: boolean) => {
+    const targetColor = new THREE.Color(isLightMode ? "#285e2b" : "#008ea5");
+    clothingMaterials.forEach((mat) => {
+      gsap.to(mat.color, {
+        r: targetColor.r,
+        g: targetColor.g,
+        b: targetColor.b,
+        duration: 1.2,
+        ease: "power2.inOut"
+      });
+    });
+  };
+
   const loadCharacter = () => {
     return new Promise<GLTF | null>(async (resolve, reject) => {
       try {
@@ -19,6 +35,9 @@ const setCharacter = (
           "MyCharacter12"
         );
         const blobUrl = URL.createObjectURL(new Blob([encryptedBlob]));
+
+        const isLightMode = document.body.getAttribute("data-theme") === "light";
+        const initialColor = isLightMode ? "#285e2b" : "#008ea5";
 
         let character: THREE.Object3D;
         loader.load(
@@ -37,22 +56,25 @@ const setCharacter = (
                   // Shirt body = Cube006 + material.008
                   if (name === "cube006" && matName === "material.008") {
                     const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
-                    newMat.color = new THREE.Color("#008ea5");
+                    newMat.color = new THREE.Color(initialColor);
                     newMat.map = null;
                     newMat.needsUpdate = true;
                     mesh.material = newMat;
+                    clothingMaterials.push(newMat);
                   // Shirt collar/neckline trim = Cube006_1 + material.010
                   } else if (name === "cube006_1" && matName === "material.010") {
                     const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
-                    newMat.color = new THREE.Color("#008ea5");
+                    newMat.color = new THREE.Color(initialColor);
                     newMat.map = null;
                     newMat.needsUpdate = true;
                     mesh.material = newMat;
+                    clothingMaterials.push(newMat);
                   } else if (name === "cap001") {
                     const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
-                    newMat.color = new THREE.Color("#008ea5");
+                    newMat.color = new THREE.Color(initialColor);
                     newMat.needsUpdate = true;
                     mesh.material = newMat;
+                    clothingMaterials.push(newMat);
                   } else if (
                     name.includes("body") || 
                     name.includes("skin") || 
@@ -102,7 +124,7 @@ const setCharacter = (
     });
   };
 
-  return { loadCharacter };
+  return { loadCharacter, updateClothingTheme };
 };
 
 export default setCharacter;

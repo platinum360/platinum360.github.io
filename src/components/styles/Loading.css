@@ -44,7 +44,7 @@
 
 .draw-fill-path {
   fill: transparent;
-  stroke: #ffffff;
+  stroke: var(--textColor);
   stroke-width: 6px;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -57,7 +57,7 @@
   font-family: "Plus Jakarta Sans", sans-serif;
   font-style: italic;
   font-size: 16px;
-  color: #ffffff;
+  color: var(--textColor);
   font-weight: 300;
   opacity: 0;
   transform: translateY(10px);
@@ -76,11 +76,11 @@
 }
 
 .decrypted-revealed {
-  color: #ffffff;
+  color: var(--textColor);
 }
 
 .decrypted-encrypted {
-  color: #fdf44f;
+  color: var(--headingColor);
   opacity: 0.7;
 }
 
@@ -95,7 +95,7 @@
   }
   100% {
     stroke-dashoffset: 0;
-    fill: #ffffff;
+    fill: var(--textColor);
   }
 }
 

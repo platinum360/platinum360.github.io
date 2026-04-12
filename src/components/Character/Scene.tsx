@@ -52,8 +52,22 @@ const Scene = () => {
       const clock = new THREE.Clock();
 
       const light = setLighting(scene);
+      
       let progress = setProgress((value) => setLoading(value));
-      const { loadCharacter } = setCharacter(camera);
+      const { loadCharacter, updateClothingTheme } = setCharacter(camera);
+
+      // Sync Three.js lighting with current theme immediately on mount
+      if (document.body.getAttribute("data-theme") === "light") {
+        light.toggleThemeLighting(true);
+      }
+
+      // Listen for runtime theme toggles from Navbar
+      const handleThemeChange = (e: Event) => {
+        const customEvent = e as CustomEvent;
+        light.toggleThemeLighting(customEvent.detail.isLightMode);
+        updateClothingTheme(customEvent.detail.isLightMode);
+      };
+      window.addEventListener("themechange", handleThemeChange);
       let isMounted = true;
 
       const resizeObserver = new ResizeObserver(() => {
@@ -216,6 +230,7 @@ const Scene = () => {
         document.removeEventListener("touchstart", onTouchStart);
         document.removeEventListener("touchmove", onTouchMove);
         document.removeEventListener("touchend", onTouchEnd);
+        window.removeEventListener("themechange", handleThemeChange);
       };
     }
   }, []);

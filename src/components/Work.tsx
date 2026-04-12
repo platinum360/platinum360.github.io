@@ -916,8 +916,8 @@ const Work = () => {
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
-        <h2 className="work-title" id="lego-pieces">
-          <span style={{ color: '#ffffff' }}>My</span> <span style={{ color: '#fdf44f' }}>LEGO</span> <span style={{ color: '#ffffff' }}>Pieces</span>
+        <h2 className="work-title light-green-heading" id="lego-pieces">
+          <span style={{ color: 'var(--textColor)' }}>My</span> <span style={{ color: 'var(--headingColor)' }}>LEGO</span> <span style={{ color: 'var(--textColor)' }}>Pieces</span>
         </h2>
 
         <div className="work-carousel-container">

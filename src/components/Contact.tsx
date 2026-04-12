@@ -15,6 +15,14 @@ const Contact = () => {
               </a>
             </p>
           </div>
+          <div className="contact-box contact-resume-mobile">
+            <h4>Resume</h4>
+            <p>
+              <a href="/Aditya Jadhav_Resume 2026.pdf" download="Aditya_Jadhav_Resume_2026.pdf" target="_blank" rel="noreferrer" data-cursor="disable">
+                Download PDF
+              </a>
+            </p>
+          </div>
           <div className="contact-box">
             <h4>Social</h4>
             <a

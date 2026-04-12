@@ -67,7 +67,30 @@ const setLighting = (scene: THREE.Scene) => {
     });
   }
 
-  return { setPointLight, turnOnLights };
+  function toggleThemeLighting(isLightMode: boolean) {
+    const isMobile = window.innerWidth < 768;
+    const envTarget = isLightMode ? 1.8 : 0.64;
+    const dirTarget = isLightMode ? 1.5 : 1;
+    const ambTarget = isMobile ? (isLightMode ? 1.2 : 0.4) : (isLightMode ? 0.8 : 0.1);
+    
+    gsap.to(scene, {
+      environmentIntensity: envTarget,
+      duration: 1.5,
+      ease: "power2.inOut",
+    });
+    gsap.to(directionalLight, {
+      intensity: dirTarget,
+      duration: 1.5,
+      ease: "power2.inOut",
+    });
+    gsap.to(ambientLight, {
+      intensity: ambTarget,
+      duration: 1.5,
+      ease: "power2.inOut",
+    });
+  }
+
+  return { setPointLight, turnOnLights, toggleThemeLighting };
 };
 
 export default setLighting;

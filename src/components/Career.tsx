@@ -5,7 +5,7 @@ const Career = () => {
     <div className="career-section section-container">
       <div className="career-container">
         <h2 className="career-title" style={{ color: "var(--accentColor)", textTransform: "capitalize" }}>
-          My Career <br className="mobile-br" /> <span style={{ color: "#FFFFFF" }}>and Experience</span>
+          My Career <br className="mobile-br" /> <span className="light-green-text" style={{ color: "var(--textColor)" }}>and Experience</span>
         </h2>
         <div className="career-info">
           <div className="career-timeline">

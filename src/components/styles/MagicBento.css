@@ -52,7 +52,7 @@ body.mb-scroll-lock {
 .mb-title {
   font-size: 26px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--textColor);
   margin: 0;
   letter-spacing: -0.3px;
 }
@@ -60,7 +60,7 @@ body.mb-scroll-lock {
 .mb-close {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
+  color: var(--textColor);
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -135,7 +135,7 @@ body.mb-scroll-lock {
 
 .mb-expand-icon {
   font-size: 26px;
-  color: #fff;
+  color: var(--textColor);
   opacity: 0;
   transform: scale(0.6);
   transition: opacity 0.2s, transform 0.2s;
@@ -182,7 +182,7 @@ body.mb-scroll-lock {
   right: 22px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
-  color: #fff;
+  color: var(--textColor);
   width: 42px;
   height: 42px;
   border-radius: 50%;

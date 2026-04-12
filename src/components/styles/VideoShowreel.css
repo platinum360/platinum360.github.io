@@ -15,11 +15,11 @@
   font-size: 38px;
   font-family: inherit;
   font-weight: 600;
-  color: #fff;
+  color: var(--textColor);
   letter-spacing: 0.5px;
 }
 .vs-title span {
-  color: #fdf44f;
+  color: var(--headingColor);
 }
 
 @media screen and (min-width: 768px) {
@@ -124,7 +124,7 @@
 }
 
 .vs-index {
-  color: #fff;
+  color: var(--textColor);
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
@@ -136,7 +136,7 @@
 .vs-control-btn {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--textColor);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -146,7 +146,7 @@
 }
 
 .vs-control-btn:hover {
-  color: #fdf44f;
+  color: var(--headingColor);
   transform: scale(1.1);
 }
 

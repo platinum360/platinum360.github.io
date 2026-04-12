@@ -52,6 +52,14 @@
   border-radius: inherit;
 }
 
+[data-theme="light"] .star-border-inner {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: var(--headingColor);
+}
+
 @keyframes star-movement-bottom {
   0% {
     transform: translate(0%, 0%);

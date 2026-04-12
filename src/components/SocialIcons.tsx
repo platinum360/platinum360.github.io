@@ -56,7 +56,7 @@ const SocialIcons = () => {
 
   return (
     <div className="icons-section">
-      <StarBorder as="div" className="social-icons-wrapper" color="#fdf44f">
+      <StarBorder as="div" className="social-icons-wrapper" color="var(--headingColor)">
         <div className="social-icons" data-cursor="icons" id="social">
           <span>
             <a href="https://www.behance.net/adityajad8519" target="_blank">

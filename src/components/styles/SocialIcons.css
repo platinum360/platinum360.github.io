@@ -24,7 +24,7 @@
   transition: 0.3s;
 }
 .social-icons a:hover {
-  color: #fdf44f !important;
+  color: var(--headingColor) !important;
   /* transform: scale(1.2); */
 }
 .social-icons span {
@@ -51,7 +51,7 @@
   top: 655px;
   left: 0;
   height: 1px;
-  background-color: #ffffff;
+  background-color: var(--textColor);
   width: 100%;
   z-index: 99999;
 }

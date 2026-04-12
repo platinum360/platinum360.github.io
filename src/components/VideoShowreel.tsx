@@ -104,7 +104,7 @@ const VideoShowreel = () => {
     <div className="vs-section" ref={sectionRef}>
       <div className="vs-container section-container">
         <h2 className="vs-title">
-          <span style={{ color: "white" }}>Snappy</span>{" "}
+          <span className="light-green-text" style={{ color: "var(--textColor)" }}>Snappy</span>{" "}
           <span>Motions</span>
         </h2>
 
