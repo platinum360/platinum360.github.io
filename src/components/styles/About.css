@@ -77,7 +77,7 @@
     padding: 0px;
     width: 60%;
     margin-left: 5%; /* nudges the section 5% towards the right */
-    transform: translateY(-9%);
+    transform: translateY(-6%);
   }
   .about-me h3 {
     text-align: left;
