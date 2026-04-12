@@ -822,6 +822,7 @@ const TiltCard = ({ project, index, onViewWork }: { project: Project; index: num
   const glareRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.innerWidth < 1025) return; // No tilt on mobile/tablet
     const card = cardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
@@ -837,6 +838,7 @@ const TiltCard = ({ project, index, onViewWork }: { project: Project; index: num
   };
 
   const handleMouseLeave = () => {
+    if (window.innerWidth < 1025) return; // No reset on mobile/tablet
     if (cardRef.current) cardRef.current.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)`;
     if (glareRef.current) glareRef.current.style.opacity = '0';
   };

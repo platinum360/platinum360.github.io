@@ -14,8 +14,6 @@ const Contact = () => {
                 aditya851999@gmail.com
               </a>
             </p>
-            <h4>Education</h4>
-            <p>Diploma in Professional Graphic Designing - Zee Institute of Creative Arts</p>
           </div>
           <div className="contact-box">
             <h4>Social</h4>

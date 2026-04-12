@@ -185,6 +185,10 @@ export default function DomeGallery({
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
 
+  // Auto-rotate state
+  const autoRotateRAF = useRef<number | null>(null);
+  const userInteracted = useRef(false);
+
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
     if (scrollLockedRef.current) return;
@@ -196,6 +200,30 @@ export default function DomeGallery({
     if (rootRef.current?.getAttribute('data-enlarging') === 'true') return;
     scrollLockedRef.current = false;
     document.body.classList.remove('dg-scroll-lock');
+  }, []);
+
+  const stopAutoRotate = useCallback(() => {
+    if (autoRotateRAF.current) {
+      cancelAnimationFrame(autoRotateRAF.current);
+      autoRotateRAF.current = null;
+    }
+  }, []);
+
+  const startAutoRotate = useCallback(() => {
+    if (autoRotateRAF.current) return; // Already running
+    const step = () => {
+      if (userInteracted.current) {
+        autoRotateRAF.current = null;
+        return;
+      }
+      rotationRef.current.y = wrapAngleSigned(rotationRef.current.y + 0.04);
+      const el = sphereRef.current;
+      if (el) {
+        el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${rotationRef.current.x}deg) rotateY(${rotationRef.current.y}deg)`;
+      }
+      autoRotateRAF.current = requestAnimationFrame(step);
+    };
+    autoRotateRAF.current = requestAnimationFrame(step);
   }, []);
 
   const items = useMemo(() => buildItems(images, segments), [images, segments]);
@@ -297,6 +325,28 @@ export default function DomeGallery({
     applyTransform(rotationRef.current.x, rotationRef.current.y);
   }, []);
 
+  // Visibility guard: auto-rotate when in view, stop when scrolled away
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          userInteracted.current = false;
+          startAutoRotate();
+        } else {
+          stopAutoRotate();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(root);
+    return () => {
+      observer.disconnect();
+      stopAutoRotate();
+    };
+  }, [startAutoRotate, stopAutoRotate]);
+
   const stopInertia = useCallback(() => {
     if (inertiaRAF.current) {
       cancelAnimationFrame(inertiaRAF.current);
@@ -342,6 +392,9 @@ export default function DomeGallery({
       onDragStart: ({ event }: any) => {
         if (focusedElRef.current) return;
         stopInertia();
+        // Stop auto-rotate the moment the user touches/clicks the gallery
+        userInteracted.current = true;
+        stopAutoRotate();
 
         pointerTypeRef.current = event.pointerType || 'mouse';
         if (pointerTypeRef.current === 'touch') event.preventDefault();

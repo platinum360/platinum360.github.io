@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 import "./styles/VideoShowreel.css";
 
@@ -19,52 +18,9 @@ const videos = [
 const VideoShowreel = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const glareRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
-
-  // 3D Tilt Effect
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left,
-      y = e.clientY - rect.top;
-    const cx = rect.width / 2,
-      cy = rect.height / 2;
-    const rotX = ((y - cy) / cy) * -6; // subtle tilt for large element
-    const rotY = ((x - cx) / cx) * 6;
-    
-    gsap.to(el, {
-      rotateX: rotX,
-      rotateY: rotY,
-      duration: 0.15,
-      ease: "power2.out",
-      transformPerspective: 1500,
-      transformStyle: "preserve-3d",
-      scale3d: 1.01
-    });
-
-    if (glareRef.current) {
-      glareRef.current.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.06), transparent 60%)`;
-      glareRef.current.style.opacity = "1";
-    }
-  };
-
-  const handleMouseLeave = () => {
-    const el = containerRef.current;
-    if (el) {
-      gsap.to(el, {
-        rotateX: 0,
-        rotateY: 0,
-        scale3d: 1,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    }
-    if (glareRef.current) glareRef.current.style.opacity = "0";
-  };
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -121,11 +77,8 @@ const VideoShowreel = () => {
         <div 
           className="vs-glass-wrapper" 
           ref={containerRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
         >
-          <div ref={glareRef} className="vs-glare" />
-          
+
           <div className="vs-video-container">
             <video 
               key={currentIdx}

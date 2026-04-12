@@ -142,7 +142,10 @@ const Scene = () => {
       document.addEventListener("touchmove", onTouchMove, { passive: true });
       document.addEventListener("touchend", onTouchEnd, { passive: true });
       let animateId: number;
+      let isVisible = true;
+
       const animate = () => {
+        if (!isVisible) return; // Pause when off-screen
         animateId = requestAnimationFrame(animate);
         if (headBone) {
           handleHeadRotation(
@@ -156,13 +159,25 @@ const Scene = () => {
           light.setPointLight(screenLight);
         }
         const delta = clock.getDelta();
-        // Always update mixer so the intro animation plays on all devices.
-        // Idle body clips are stopped after intro on mobile (see below).
         if (mixer) {
           mixer.update(delta);
         }
         renderer.render(scene, camera);
       };
+
+      // Pause the render loop when the canvas is completely off-screen
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          const wasVisible = isVisible;
+          isVisible = entry.isIntersecting;
+          if (!wasVisible && isVisible) {
+            animate(); // Restart loop when coming back into view
+          }
+        },
+        { threshold: 0 }
+      );
+      if (canvasDiv.current) visibilityObserver.observe(canvasDiv.current);
+
       animate();
       return () => {
         isMounted = false;
@@ -181,6 +196,7 @@ const Scene = () => {
         scene.clear();
         renderer.dispose();
         resizeObserver.disconnect();
+        visibilityObserver.disconnect();
         if (canvasDiv.current) {
           canvasDiv.current.removeChild(renderer.domElement);
         }
