@@ -1,32 +1,33 @@
 import { useEffect, useRef } from "react";
+import "./styles/AuroraCursor.css";
 
 /**
- * SpotlightCursor
+ * AuroraCursor (SpotlightCursor replacement)
  *
- * A GPU-composited teal radial spotlight that follows the cursor.
- * Uses translate3d() on a fixed-size circular div — this triggers GPU layer
- * composition instead of a full-viewport repaint, completely eliminating
- * the Work section lag caused by the previous background-mutation approach.
+ * Architecture — two separate div layers to avoid JS/CSS transform conflicts:
  *
- * The inner bright core + outer soft halo gives a much more vivid, dramatic
- * look compared to the old single-layer gradient.
+ *  [Fixed container] overflow: hidden
+ *    └─ [Wrapper div]  JS-controlled via translate3d (GPU composited, zero repaints)
+ *         └─ [Blob div]  CSS-controlled aurora-morph + aurora-breathe animations
+ *
+ * The wrapper moves instantly with the mouse (but lerped at 0.05 for a dreamy
+ * trailing feel). The blob independently breathes and morphs its shape.
+ * hue-rotate in aurora-breathe shifts the teal between cyan and blue-green
+ * without mutating the background property, keeping it compositor-only.
  */
 const SpotlightCursor = () => {
-  const innerRef = useRef<HTMLDivElement>(null);
-  const outerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const inner = innerRef.current;
-    const outer = outerRef.current;
-    if (!inner || !outer) return;
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
     let rafId: number;
+    // Start at viewport centre so the blob fades in gracefully
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let innerX = mouseX;
-    let innerY = mouseY;
-    let outerX = mouseX;
-    let outerY = mouseY;
+    let blobX = mouseX;
+    let blobY = mouseY;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
@@ -34,17 +35,11 @@ const SpotlightCursor = () => {
     };
 
     const loop = () => {
-      // Inner spotlight snaps faster (more responsive)
-      innerX += (mouseX - innerX) * 0.18;
-      innerY += (mouseY - innerY) * 0.18;
-      // Outer halo lags behind for an organic trailing effect
-      outerX += (mouseX - outerX) * 0.07;
-      outerY += (mouseY - outerY) * 0.07;
-
-      // translate3d triggers GPU composition — zero repaints
-      inner.style.transform = `translate3d(${innerX}px, ${innerY}px, 0) translate(-50%, -50%)`;
-      outer.style.transform = `translate3d(${outerX}px, ${outerY}px, 0) translate(-50%, -50%)`;
-
+      // Low lerp factor = slow, dreamy lag that reinforces the aurora feel
+      blobX += (mouseX - blobX) * 0.05;
+      blobY += (mouseY - blobY) * 0.05;
+      // translate3d triggers GPU layer composition — zero repaints
+      wrapper.style.transform = `translate3d(${blobX}px, ${blobY}px, 0)`;
       rafId = requestAnimationFrame(loop);
     };
 
@@ -68,38 +63,28 @@ const SpotlightCursor = () => {
       }}
       aria-hidden="true"
     >
-      {/* Inner bright core — tight, vivid spotlight */}
+      {/*
+       * Wrapper: JS moves this with translate3d (GPU composited).
+       * Pre-offset by -150px (half the 300px blob) so the blob centres
+       * on the cursor position.
+       */}
       <div
-        ref={innerRef}
+        ref={wrapperRef}
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          width: "320px",
-          height: "320px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(0,200,220,0.18) 0%, rgba(0,142,165,0.1) 45%, transparent 70%)",
+          top: "-150px",
+          left: "-150px",
           willChange: "transform",
           pointerEvents: "none",
         }}
-      />
-      {/* Outer soft halo — wide, ambient glow */}
-      <div
-        ref={outerRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "700px",
-          height: "700px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(0,142,165,0.06) 0%, rgba(0,100,120,0.03) 50%, transparent 70%)",
-          willChange: "transform",
-          pointerEvents: "none",
-        }}
-      />
+      >
+        {/*
+         * Blob: only CSS animations touch this element.
+         * aurora-morph shapes it organically.
+         * aurora-breathe pulses scale, opacity, and hue.
+         */}
+        <div className="aurora-blob" />
+      </div>
     </div>
   );
 };
