@@ -33,6 +33,8 @@ const Navbar = () => {
         if (window.innerWidth > 1024) {
           e.preventDefault();
           smoother.scrollTo(section, true, "top top");
+          // Ensure all triggers are recalculated immediately after the jump
+          setTimeout(() => ScrollTrigger.refresh(), 100);
         } else if (section === "#work") {
           // Mobile Redirect for WORK link to Lego Pieces
           e.preventDefault();
