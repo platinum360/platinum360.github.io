@@ -165,18 +165,29 @@ const Scene = () => {
         renderer.render(scene, camera);
       };
 
-      // Pause the render loop when the canvas is completely off-screen
-      const visibilityObserver = new IntersectionObserver(
-        ([entry]) => {
-          const wasVisible = isVisible;
-          isVisible = entry.isIntersecting;
-          if (!wasVisible && isVisible) {
-            animate(); // Restart loop when coming back into view
-          }
-        },
-        { threshold: 0 }
-      );
-      if (canvasDiv.current) visibilityObserver.observe(canvasDiv.current);
+      // Fix: canvasDiv is inside position:fixed 100vw/100vh so IntersectionObserver
+      // always reports it as visible. Instead, observe the .whatIDO section —
+      // once it scrolls completely above the viewport, the GSAP animation has
+      // already slid the character off-screen and we can safely pause rendering.
+      const whatIDOSection = document.querySelector(".whatIDO");
+      if (whatIDOSection) {
+        const visibilityObserver = new IntersectionObserver(
+          ([entry]) => {
+            const wasVisible = isVisible;
+            // Pause only when whatIDO has fully scrolled ABOVE the viewport
+            const isPastSection =
+              !entry.isIntersecting && entry.boundingClientRect.bottom < 0;
+            isVisible = !isPastSection;
+            if (!wasVisible && isVisible) {
+              animate(); // Resume render loop
+            }
+          },
+          { threshold: 0 }
+        );
+        visibilityObserver.observe(whatIDOSection);
+        // Store ref for cleanup
+        (window as any).__charVisObs = visibilityObserver;
+      }
 
       animate();
       return () => {
@@ -196,7 +207,8 @@ const Scene = () => {
         scene.clear();
         renderer.dispose();
         resizeObserver.disconnect();
-        visibilityObserver.disconnect();
+        (window as any).__charVisObs?.disconnect();
+        delete (window as any).__charVisObs;
         if (canvasDiv.current) {
           canvasDiv.current.removeChild(renderer.domElement);
         }
