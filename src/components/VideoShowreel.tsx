@@ -58,16 +58,25 @@ const VideoShowreel = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Handle play/pause based on visibility and user control
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
     if (inView && isPlaying) {
-      video.play().catch(e => console.log(e));
+      video.play().catch(() => {});
     } else {
       video.pause();
     }
-  }, [inView, isPlaying, currentIdx]);
+  }, [inView, isPlaying]);
+
+  // Handle track changes imperatively — avoids destroying/recreating the video element
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !inView) return;
+    video.src = videos[currentIdx];
+    video.load();
+    if (isPlaying) video.play().catch(() => {});
+  }, [currentIdx]);
 
   return (
     <div className="vs-section">
@@ -80,14 +89,13 @@ const VideoShowreel = () => {
         >
 
           <div className="vs-video-container">
-            <video 
-              key={currentIdx}
+            <video
               ref={videoRef}
-              src={inView ? videos[currentIdx] : ""}
+              src={videos[currentIdx]}
               className="vs-video"
               muted={isMuted}
               playsInline
-              autoPlay={isPlaying && inView}
+              preload="auto"
               onEnded={handleNext}
             />
           </div>
