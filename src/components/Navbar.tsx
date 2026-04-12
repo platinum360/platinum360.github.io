@@ -32,14 +32,7 @@ const Navbar = () => {
 
         if (window.innerWidth > 1024) {
           e.preventDefault();
-          if (section === "#about") {
-            // tl2 begins at "center 55%" of .about-section — navigating to
-            // "top top" lands before tl2 starts, leaving the character in a
-            // broken mid-transition. "top 45%" aligns with the actual trigger.
-            smoother.scrollTo(section, true, "top 45%");
-          } else {
-            smoother.scrollTo(section, true, "top top");
-          }
+          smoother.scrollTo(section, true, "top top");
         } else if (section === "#work") {
           // Mobile Redirect for WORK link to Lego Pieces
           e.preventDefault();
