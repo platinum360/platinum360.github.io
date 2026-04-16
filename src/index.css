@@ -35,20 +35,6 @@
   --cursor-stroke: #ffffff;
 }
 
-/* Global Cursor Suppression */
-* {
-  cursor: none !important;
-}
-
-/* Form element cursor resets for accessibility */
-input, textarea, select {
-  cursor: text !important;
-}
-
-button, a, [role="button"], .navbar-title {
-  cursor: none !important; /* Force custom cursor on interactive elements */
-}
-
 [data-theme="light"] {
   --textColor: #2a2a2a;
   --backgroundColor: #f8f6f0;

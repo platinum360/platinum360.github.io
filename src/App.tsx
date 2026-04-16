@@ -3,7 +3,6 @@ import "./App.css";
 
 const CharacterModel = lazy(() => import("./components/Character"));
 import MainContainer from "./components/MainContainer";
-import SmoothCursor from "./components/SmoothCursor";
 import { LoadingProvider } from "./context/LoadingProvider";
 
 const App = () => {
@@ -11,7 +10,6 @@ const App = () => {
     <>
       <LoadingProvider>
         <Suspense>
-          <SmoothCursor />
           <MainContainer>
             <Suspense>
               <CharacterModel />
