@@ -106,8 +106,9 @@ const Scene = () => {
               light.turnOnLights();
               animations.startIntro();
             });
-            // Trigger manually once character is added to ensure GSAP timelines are set
-            handleResize(renderer, camera, canvasDiv, character);
+            // Trigger manually once character is added to ensure GSAP timelines are set.
+            // force=true bypasses the width-change guard so the first render always runs.
+            handleResize(renderer, camera, canvasDiv, character, true);
           }
         })
         .catch((err) => {
