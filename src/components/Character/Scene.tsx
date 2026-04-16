@@ -107,8 +107,7 @@ const Scene = () => {
               animations.startIntro();
             });
             // Trigger manually once character is added to ensure GSAP timelines are set.
-            // force=true bypasses the width-change guard so the first render always runs.
-            handleResize(renderer, camera, canvasDiv, character, true);
+            handleResize(renderer, camera, canvasDiv, character);
           }
         })
         .catch((err) => {
@@ -240,7 +239,7 @@ const Scene = () => {
     <>
       <div 
         className="character-container" 
-        style={{ position: 'fixed', top: 0, left: 0, width: '100dvw', height: '100dvh', zIndex: 50, pointerEvents: 'none' }}
+        style={{ position: 'fixed', top: 0, left: 0, width: '100dvw', height: '100svh', zIndex: 50, pointerEvents: 'none' }}
       >
         <div className="character-model" ref={canvasDiv}>
           <div className="character-rim"></div>
