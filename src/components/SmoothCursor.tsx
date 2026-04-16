@@ -18,7 +18,9 @@ export interface SmoothCursorProps {
   }
 }
 
-const DESKTOP_POINTER_QUERY = "(any-hover: hover) and (any-pointer: fine)"
+// Use primary-pointer variants (not any-*) so Android devices with stylus
+// support don't falsely match — the primary input on a phone is always touch (coarse).
+const DESKTOP_POINTER_QUERY = "(pointer: fine) and (hover: hover)"
 
 function isTrackablePointer(pointerType: string) {
   return pointerType !== "touch"
@@ -119,7 +121,10 @@ export const SmoothCursor: FC<SmoothCursorProps> = ({
     const mediaQuery = window.matchMedia(DESKTOP_POINTER_QUERY)
 
     const updateEnabled = () => {
-      const nextIsEnabled = mediaQuery.matches
+      // Double-guard: media query covers the common case; maxTouchPoints === 0
+      // ensures we never show the cursor on any touch-capable device even if
+      // the browser mis-reports the pointer type (common in Chrome on Android).
+      const nextIsEnabled = mediaQuery.matches && navigator.maxTouchPoints === 0
       setIsEnabled(nextIsEnabled)
 
       if (!nextIsEnabled) {
