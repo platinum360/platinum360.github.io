@@ -1,4 +1,4 @@
-import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { MdArrowOutward } from "react-icons/md";
 import "./styles/Contact.css";
 
 const Contact = () => {
@@ -55,9 +55,6 @@ const Contact = () => {
               <span className="designed-by">Designed <br /> by</span>{" "}
               <span className="designed-name">Aditya Jadhav</span>
             </h2>
-            <h5>
-              <MdCopyright /> 2026
-            </h5>
           </div>
         </div>
       </div>

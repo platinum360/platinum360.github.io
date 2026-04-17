@@ -11,6 +11,7 @@ const Loading = () => {
     // Hold animation for 2.4 seconds (drawing + filling takes ~1.8s)
     const revealTimer = setTimeout(() => {
       setIsFadingOut(true);
+      window.dispatchEvent(new Event("hero-intro-start"));
     }, 2400);
 
     const removeTimer = setTimeout(() => {

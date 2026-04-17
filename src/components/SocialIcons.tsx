@@ -2,6 +2,7 @@ import {
   FaBehance,
   FaInstagram,
   FaLinkedinIn,
+  FaRegFileLines,
 } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
 import { useEffect } from "react";
@@ -58,6 +59,11 @@ const SocialIcons = () => {
     <div className="icons-section">
       <StarBorder as="div" className="social-icons-wrapper" color="var(--headingColor)">
         <div className="social-icons" data-cursor="icons" id="social">
+          <span>
+            <a href="/Aditya Jadhav_Resume 2026.pdf" download="Aditya_Jadhav_Resume_2026.pdf" target="_blank" rel="noreferrer">
+              <FaRegFileLines />
+            </a>
+          </span>
           <span>
             <a href="https://www.behance.net/adityajad8519" target="_blank">
               <FaBehance />

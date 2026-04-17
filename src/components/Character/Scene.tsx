@@ -52,6 +52,23 @@ const Scene = () => {
       const clock = new THREE.Clock();
 
       const light = setLighting(scene);
+
+      let introStarted = false;
+      let heroIntroTriggered = false;
+      let charAnimations: ReturnType<typeof setAnimations> | null = null;
+
+      const triggerIntro = () => {
+        if (!introStarted && heroIntroTriggered && charAnimations) {
+          introStarted = true;
+          charAnimations.startIntro();
+        }
+      };
+
+      const handleHeroIntroStart = () => {
+        heroIntroTriggered = true;
+        triggerIntro();
+      };
+      window.addEventListener("hero-intro-start", handleHeroIntroStart);
       
       let progress = setProgress((value) => setLoading(value));
       const { loadCharacter, updateClothingTheme } = setCharacter(camera);
@@ -93,6 +110,7 @@ const Scene = () => {
             if (duplicate) scene.remove(duplicate);
 
             const animations = setAnimations(gltf);
+            charAnimations = animations;
             hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
             mixer = animations.mixer;
             let character = gltf.scene;
@@ -104,7 +122,7 @@ const Scene = () => {
             progress.loaded().then(() => {
               document.body.classList.add("character-loaded");
               light.turnOnLights();
-              animations.startIntro();
+              triggerIntro();
             });
             // Trigger manually once character is added to ensure GSAP timelines are set.
             handleResize(renderer, camera, canvasDiv, character);
@@ -231,6 +249,7 @@ const Scene = () => {
         document.removeEventListener("touchmove", onTouchMove);
         document.removeEventListener("touchend", onTouchEnd);
         window.removeEventListener("themechange", handleThemeChange);
+        window.removeEventListener("hero-intro-start", handleHeroIntroStart);
       };
     }
   }, []);

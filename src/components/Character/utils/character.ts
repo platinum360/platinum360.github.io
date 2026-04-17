@@ -13,6 +13,7 @@ const setCharacter = (
   loader.setDRACOLoader(dracoLoader);
 
   const clothingMaterials: THREE.MeshStandardMaterial[] = [];
+  const skinMaterials: THREE.MeshStandardMaterial[] = [];
 
   const updateClothingTheme = (isLightMode: boolean) => {
     const targetColor = new THREE.Color(isLightMode ? "#285e2b" : "#008ea5");
@@ -21,6 +22,17 @@ const setCharacter = (
         r: targetColor.r,
         g: targetColor.g,
         b: targetColor.b,
+        duration: 1.2,
+        ease: "power2.inOut"
+      });
+    });
+
+    const targetSkinColor = new THREE.Color(isLightMode ? "#d2996a" : "#E4AE6A");
+    skinMaterials.forEach((mat) => {
+      gsap.to(mat.color, {
+        r: targetSkinColor.r,
+        g: targetSkinColor.g,
+        b: targetSkinColor.b,
         duration: 1.2,
         ease: "power2.inOut"
       });
@@ -38,6 +50,7 @@ const setCharacter = (
 
         const isLightMode = document.body.getAttribute("data-theme") === "light";
         const initialColor = isLightMode ? "#285e2b" : "#008ea5";
+        const initialSkinColor = isLightMode ? "#d2996a" : "#E4AE6A";
 
         let character: THREE.Object3D;
         loader.load(
@@ -88,8 +101,9 @@ const setCharacter = (
                   ) {
                     if (!name.includes("hair") && !name.includes("eye") && !name.includes("tooth") && !name.includes("shoe")) {
                       const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
-                      newMat.color = new THREE.Color("#d2996a");
+                      newMat.color = new THREE.Color(initialSkinColor);
                       mesh.material = newMat;
+                      skinMaterials.push(newMat);
                     }
                   }
                 }

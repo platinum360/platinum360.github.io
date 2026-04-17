@@ -32,6 +32,10 @@
   cursor: pointer;
 }
 
+.nav-theme-toggle {
+  margin-left: 10px;
+}
+
 .nav-star-border .star-border-inner {
   padding: 6px 16px;
   border-radius: 20px;
@@ -71,9 +75,6 @@
   .header ul {
     margin: 0 !important;
   }
-  .nav-resume-link {
-    display: none !important;
-  }
 }
 @media only screen and (min-width: 450px) {
   .header {
@@ -81,7 +82,7 @@
   }
   .header ul {
     font-size: 12px;
-    column-gap: 12px;
+    column-gap: 13px;
   }
   .navbar-title {
     font-size: 15px;
@@ -94,7 +95,7 @@
   }
   .header ul {
     font-size: 14px;
-    column-gap: 25px;
+    column-gap: 28px;
   }
   .navbar-title {
     font-size: 16px;
@@ -111,8 +112,11 @@
     padding: 35px 0px;
   }
   .header ul {
-    column-gap: 80px;
+    column-gap: 88px;
     font-size: 16px;
+  }
+  .nav-theme-toggle {
+    margin-left: 12px;
   }
   .navbar-connect {
     font-size: 16px;

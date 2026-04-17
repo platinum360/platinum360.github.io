@@ -60,6 +60,13 @@
 }
 
 /* Navbar specific light mode targeting */
+@media screen and (min-width: 1025px) {
+  [data-theme="light"] .nav-star-border:hover .star-border-inner {
+    background: #285e2b !important;
+    border-color: #285e2b !important;
+  }
+}
+
 [data-theme="light"] .header a:hover,
 [data-theme="light"] .header a:hover *,
 [data-theme="light"] .nav-star-border:hover .star-border-inner {

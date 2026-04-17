@@ -2,8 +2,11 @@ import gsap from "gsap";
 import { smoother } from "../Navbar";
 
 export function initialFX() {
+  // Always start from the very top (Hero section) on every load/refresh
+  window.scrollTo({ top: 0, behavior: "instant" });
   document.body.style.overflowY = "auto";
   if (smoother) smoother.paused(false);
+  if (smoother) smoother.scrollTo(0, false);
   
   const mainEl = document.querySelector(".main-body");
   if (mainEl) mainEl.classList.add("main-active");

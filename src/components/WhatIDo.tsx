@@ -3,9 +3,12 @@ import "./styles/WhatIDo.css";
 
 const WhatIDo = () => {
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;
   };
+  
   const handleClick = (container: HTMLDivElement) => {
     const isActive = container.classList.contains("what-content-active");
     const siblings = Array.from(container.parentElement?.children || []);
@@ -36,9 +39,27 @@ const WhatIDo = () => {
         }
       });
     }
+
+    // Scroll-triggered animations observer
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("what-visible");
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
+
   return (
-    <div className="whatIDO">
+    <div className="whatIDO" ref={sectionRef}>
       <div className="what-box">
         <h2 className="what-h2">
           <span className="light-green-text">The

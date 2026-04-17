@@ -11,13 +11,12 @@ gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
-  const [isLightMode, setIsLightMode] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(() => {
+    // Check localStorage synchronously for initial render
+    return typeof window !== "undefined" && localStorage.getItem("theme") === "light";
+  });
 
   useEffect(() => {
-    // Always start with Dark Mode (Original Mode)
-    document.body.removeAttribute("data-theme");
-    setIsLightMode(false);
-
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
@@ -64,8 +63,10 @@ const Navbar = () => {
         const newTheme = !prev;
         if (newTheme) {
           document.body.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
         } else {
           document.body.removeAttribute("data-theme");
+          localStorage.setItem("theme", "dark");
         }
         
         window.dispatchEvent(new CustomEvent("themechange", { detail: { isLightMode: newTheme } }));
@@ -99,7 +100,7 @@ const Navbar = () => {
           />
         </a>
 
-        <ul style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <ul className="nav-list">
           <StarBorder as="li" color="var(--headingColor)" className="nav-star-border">
             <a data-href="#about" href="#about">
               <HoverLinks text="ABOUT" />
@@ -110,11 +111,6 @@ const Navbar = () => {
               <HoverLinks text="WORK" />
             </a>
           </StarBorder>
-          <StarBorder as="li" color="var(--headingColor)" className="nav-star-border nav-resume-link">
-            <a href="/Aditya Jadhav_Resume 2026.pdf" download="Aditya_Jadhav_Resume_2026.pdf" target="_blank" rel="noreferrer">
-              <HoverLinks text="RESUME" />
-            </a>
-          </StarBorder>
           <StarBorder as="li" color="var(--headingColor)" className="nav-star-border">
             <a data-href="#contact" href="#contact">
               <HoverLinks text="CONTACT" />
@@ -122,7 +118,7 @@ const Navbar = () => {
           </StarBorder>
           
           {/* Premium Sliding Theme Toggle (Option 4) */}
-          <li className="nav-theme-toggle" data-cursor="disable" style={{ marginLeft: "10px" }}>
+          <li className="nav-theme-toggle" data-cursor="disable">
             <div 
               onClick={(e) => toggleTheme(e)}
               className="premium-toggle-wrapper"
