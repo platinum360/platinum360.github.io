@@ -12,6 +12,20 @@
   padding: 100px 0 120px;
 }
 
+/* Tablet & Desktop: add breathing room between Career and Work section */
+@media screen and (min-width: 769px) {
+  .career-section {
+    margin-bottom: 160px;
+  }
+}
+
+/* Mobile: hide the desktop timeline layout — ScrollStack takes over */
+@media screen and (max-width: 768px) {
+  .career-desktop-only {
+    display: none !important;
+  }
+}
+
 .career-section h2 {
   font-size: 70px;
   line-height: 70px;

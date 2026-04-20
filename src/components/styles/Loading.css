@@ -34,6 +34,11 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  --logoColor: var(--textColor);
+}
+
+[data-theme="light"] .logo-wrapper {
+  --logoColor: #285e2b; /* Forest Green for UI, specifically for the SVG Logo */
 }
 
 .reveal-svg-logo {
@@ -44,7 +49,7 @@
 
 .draw-fill-path {
   fill: transparent;
-  stroke: var(--textColor);
+  stroke: var(--logoColor);
   stroke-width: 6px;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -95,7 +100,7 @@
   }
   100% {
     stroke-dashoffset: 0;
-    fill: var(--textColor);
+    fill: var(--logoColor);
   }
 }
 

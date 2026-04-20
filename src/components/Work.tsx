@@ -849,6 +849,7 @@ const TiltCard = ({ project, index, onViewWork }: { project: Project; index: num
       className="work-tilt-card"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={onViewWork}
       data-cursor="disable"
     >
       <div ref={glareRef} className="work-card-glare" />

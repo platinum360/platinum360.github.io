@@ -110,6 +110,13 @@ a.contact-social {
 }
 
 @media screen and (max-width: 900px) {
+  .contact-section h3 {
+    font-size: 34px !important;
+    line-height: 40px !important;
+    font-weight: 500 !important;
+    text-align: center;
+  }
+
   .contact-section {
     margin-top: 30px;
     padding-bottom: 50px;

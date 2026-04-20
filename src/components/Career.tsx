@@ -1,8 +1,11 @@
+import CareerMobileTimeline from "./CareerMobileTimeline";
 import "./styles/Career.css";
 
 const Career = () => {
   return (
-    <div className="career-section section-container">
+    <>
+    {/* Desktop / Tablet: original timeline layout — hidden on mobile via CSS */}
+    <div className="career-section section-container career-desktop-only">
       <div className="career-container">
         <h2 className="career-title" style={{ color: "var(--accentColor)", textTransform: "capitalize" }}>
           My Career <br className="mobile-br" /> <span className="light-green-text" style={{ color: "var(--textColor)" }}>and Experience</span>
@@ -86,6 +89,9 @@ const Career = () => {
         </div>
       </div>
     </div>
+    {/* Mobile only: Glowing Thread Vertical Timeline layout */}
+    <CareerMobileTimeline />
+    </>
   );
 };
 

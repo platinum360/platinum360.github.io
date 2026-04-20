@@ -122,10 +122,7 @@
   background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Remove Career Timeline Glow Dot */
-[data-theme="light"] .career-dot {
-  display: none !important;
-}
+/* Career Timeline Glow Dot - visible in both modes via --headingColor */
 
 /* Work Projects Grid Card Customization */
 [data-theme="light"] .work-tilt-card {
