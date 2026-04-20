@@ -16,16 +16,11 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
     window.innerWidth > 1024
   );
-  // Tablet and above: Career moves below Work section
-  const [isTabletOrAbove, setIsTabletOrAbove] = useState<boolean>(
-    window.innerWidth > 768
-  );
 
   useEffect(() => {
     const resizeHandler = () => {
       setSplitText();
       setIsDesktopView(window.innerWidth > 1024);
-      setIsTabletOrAbove(window.innerWidth > 768);
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
