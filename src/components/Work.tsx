@@ -7,7 +7,33 @@ import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 const BASE = '/The%20Work_webp';
 
 const projects = [
-{
+  {
+    title: "Plexilent Watch App",
+    category: "App UI/UX",
+    tools: "UI/UX · Wearable · App Design",
+    cover: `${BASE}/Plexilent%20Watch%20App/Cover.webp`,
+    images: [
+      `${BASE}/Plexilent%20Watch%20App/Plexilent%20Campaign%206-01.webp`,
+      `${BASE}/Plexilent%20Watch%20App/Plexilent%20Campaign%206-02.webp`,
+      `${BASE}/Plexilent%20Watch%20App/Plexilent%20Campaign%206-03.webp`,
+      `${BASE}/Plexilent%20Watch%20App/Plexilent%20Campaign%206B.webp`,
+      `${BASE}/Plexilent%20Watch%20App/Plexilent%20Smart%20Watch%20Website%20Banner_1600X700-01.webp`,
+    ],
+  },
+  {
+    title: "Colossus Excellence Inside 2026",
+    category: "Campaign & Branding",
+    tools: "Visual Identity · Social · Print",
+    cover: `${BASE}/Colossus%20Excellence%20Inside%202026/Cover.webp`,
+    images: [
+      `${BASE}/Colossus%20Excellence%20Inside%202026/Campaign%205-01.webp`,
+      `${BASE}/Colossus%20Excellence%20Inside%202026/Campaign%205-02.webp`,
+      `${BASE}/Colossus%20Excellence%20Inside%202026/Campaign%205-03.webp`,
+      `${BASE}/Colossus%20Excellence%20Inside%202026/Campaign%205-04.webp`,
+      `${BASE}/Colossus%20Excellence%20Inside%202026/Campaign%205-06.webp`,
+    ],
+  },
+  {
     title: "Colossus Brand Promotion",
     category: "Visual Identity",
     tools: "Branding · Visuals · Print",
@@ -865,7 +891,12 @@ const TiltCard = ({ project, index, onViewWork }: { project: Project; index: num
 
       {/* Floating cover image */}
       <div className="work-card-img-wrap">
-        <img src={project.cover} alt={project.title} className="work-card-img" />
+        <img 
+          src={project.cover} 
+          alt={project.title} 
+          className="work-card-img" 
+          style={project.title === "Colossus Excellence Inside 2026" ? { objectPosition: "top" } : {}}
+        />
       </div>
 
       {/* Bottom */}
