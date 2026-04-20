@@ -206,10 +206,19 @@ const Scene = () => {
         const visibilityObserver = new IntersectionObserver(
           ([entry]) => {
             const wasVisible = isVisible;
-            // Pause only when whatIDO has fully scrolled ABOVE the viewport
-            const isPastSection =
-              !entry.isIntersecting && entry.boundingClientRect.bottom < 0;
-            isVisible = !isPastSection;
+            let shouldPause = false;
+            
+            if (window.innerWidth <= 1024) {
+              // Mobile: the character doesn't animate up, so it gets covered immediately.
+              // Pause as soon as WhatIDo starts intersecting to save battery.
+              shouldPause = entry.isIntersecting || entry.boundingClientRect.top < 0;
+            } else {
+              // Desktop: Pause only when whatIDO has fully scrolled ABOVE the viewport,
+              // since it has a GSAP sequence that needs rendering while WhatIDo is visible.
+              shouldPause = !entry.isIntersecting && entry.boundingClientRect.bottom < 0;
+            }
+            
+            isVisible = !shouldPause;
             if (!wasVisible && isVisible) {
               animate(); // Resume render loop
             }

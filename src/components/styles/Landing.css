@@ -159,15 +159,15 @@
 
 @media screen and (max-width: 767px) {
   .character-model {
-    transform: translateY(1vh);
+    transform: translateY(10px);
   }
 
   .landing-info {
-    bottom: -8vh !important;
+    bottom: -60px !important;
   }
 
   .creative-designer-img {
-    margin-top: 1vh !important;
+    margin-top: 10px !important;
   }
 
   .name-img {
@@ -229,7 +229,7 @@
 .landing-intro {
   position: absolute;
   z-index: 99;
-  top: 10vh;
+  top: 10svh;
   left: 0;
   width: 100%;
   text-align: center;
